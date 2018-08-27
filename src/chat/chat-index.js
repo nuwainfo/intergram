@@ -18,6 +18,7 @@ render(
         userId={getUserId()}
         host={getUrlParameter('host')}
         conf={conf}
+        web={getUrlParameter('web')}
     />,
     document.getElementById('intergramChat')
 );

@@ -19,9 +19,11 @@ function injectChat() {
         const iFrameSrc = server + '/chat.html';
         const host = window.location.host || 'unknown-host';
         const conf = { ...defaultConfiguration, ...window.intergramCustomizations };
-
+        const webName = window.webName || 'unknown-web';
+        
         render(
             <Widget intergramId={window.intergramId}
+                    webName={webName}
                     host={host}
                     isMobile={window.screen.width < 500}
                     iFrameSrc={iFrameSrc}

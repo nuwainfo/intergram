@@ -22,7 +22,7 @@ export default class Chat extends Component {
     componentDidMount() {
         this.socket = io.connect();
         this.socket.on('connect', () => {
-            this.socket.emit('register', {chatId: this.props.chatId, userId: this.props.userId });
+            this.socket.emit('register', {chatId: this.props.chatId, userId: this.props.userId, webName: this.props.web});
         });
         this.socket.on(this.props.chatId, this.incomingMessage);
         this.socket.on(this.props.chatId+'-'+this.props.userId, this.incomingMessage);
@@ -41,8 +41,8 @@ export default class Chat extends Component {
                        ref={(input) => { this.input = input }}
                        onKeyPress={this.handleKeyPress}/>
 
-                <a class="banner" href="https://github.com/idoco/intergram" target="_blank">
-                    Powered by <b>Intergram</b>&nbsp;
+                <a class="banner" href="#" target="_blank">
+                    Powered by <b>Nuwainfo</b>&nbsp;
                 </a>
             </div>
         );
