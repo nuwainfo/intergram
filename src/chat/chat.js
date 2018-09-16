@@ -24,9 +24,17 @@ export default class Chat extends Component {
         this.socket.on('connect', () => {
             this.socket.emit('register', {chatId: this.props.chatId, userId: this.props.userId, webName: this.props.web});
         });
+        
         this.socket.on(this.props.chatId, this.incomingMessage);
-        this.socket.on(this.props.chatId+'-'+this.props.userId, this.incomingMessage);
-
+        this.socket.on(this.props.chatId + '-' + this.props.userId + '-' + this.props.web, this.incomingMessage);
+        /*
+        var chatIdList = this.props.chatId.split(",");
+        for (var i; i < chatIdList.length; i++){
+            id = chatIdList[i]
+            this.socket.on(id, this.incomingMessage);
+            this.socket.on(id + '-' + this.props.userId, this.incomingMessage);
+        };
+        */
         if (!this.state.messages.length) {
             this.writeToMessages({text: this.props.conf.introMessage, from: 'admin'});
         }
