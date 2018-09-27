@@ -50,6 +50,7 @@ io.on('connection', function(client){
         let userId = registerMsg.userId;
         let chatId = registerMsg.chatId;
         let webName = registerMsg.webName;
+        let leftString = registerMsg.leftString;
         
         let messageReceived = false;
         console.log("useId " + userId + " connected to chatId " + chatId + " from " + webName);
@@ -63,7 +64,7 @@ io.on('connection', function(client){
 
         client.on('disconnect', function(){
             if (messageReceived) {
-                sendTelegramMessage(chatId, userId + " has left");
+                sendTelegramMessage(chatId, userId + " " + leftString);
             }
         });
     });

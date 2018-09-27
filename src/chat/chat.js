@@ -22,7 +22,7 @@ export default class Chat extends Component {
     componentDidMount() {
         this.socket = io.connect();
         this.socket.on('connect', () => {
-            this.socket.emit('register', {chatId: this.props.chatId, userId: this.props.userId, webName: this.props.web});
+            this.socket.emit('register', {chatId: this.props.chatId, userId: this.props.userId, webName: this.props.web, leftString: this.props.conf.leftString});
         });
         
         //this.socket.on(this.props.chatId, this.incomingMessage);
