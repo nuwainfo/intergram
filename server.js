@@ -29,9 +29,9 @@ app.post('/hook', function(req, res){
         } else if (reply) {
             let replyText = reply.text || "";
             let userId = replyText.split(' ')[0];
-            let allChatId = replyText.split(' ')[2];
-            let webName = replyText.split(' ')[4];
-            io.emit(allChatId + "-" + userId + "-" + webName, {name, text, from: 'admin'});
+            let webName = replyText.split(' ')[2];
+            
+            io.emit(chatId + "-" + userId + "-" + webName, {name, text, from: 'admin'});
         } else if (text){
             io.emit(chatId, {name, text, from: 'admin'});
         }
@@ -56,9 +56,9 @@ io.on('connection', function(client){
 
         client.on('message', function(msg) {
             messageReceived = true;
-            io.emit(chatId + "-" + userId + "-" + webName, msg);
+            io.emit(userId + "-" + webName, msg);
             let visitorName = msg.visitorName ? "[" + msg.visitorName + "]: " : "";
-            sendTelegramMessage(chatId, userId + " to " + chatId + " from " + webName + " : " + visitorName + " " + msg.text);
+            sendTelegramMessage(chatId, userId + " from " + webName + " : " + visitorName + " " + msg.text);
         });
 
         client.on('disconnect', function(){
