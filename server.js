@@ -28,8 +28,12 @@ app.post('/hook', function(req, res){
                 "Markdown");
         } else if (reply) {
             let replyText = reply.text || "";
-            let userId = replyText.split(' ')[0];
-            let webName = replyText.split(' ')[2];
+            
+            let index1 = replyText.indexOf("[");
+            let index2 = replyText.indexOf("]");
+            
+            let userId = replyText.substring(0, index1);
+            let webName = replyText.substring(index1 + 1, index2);
             
             io.emit(chatId + "-" + userId + "-" + webName, {name, text, from: 'admin'});
         } else if (text){
@@ -59,7 +63,7 @@ io.on('connection', function(client){
             messageReceived = true;
             io.emit(userId + "-" + webName, msg);
             let visitorName = msg.visitorName ? "[" + msg.visitorName + "]: " : "";
-            sendTelegramMessage(chatId, userId + " from " + webName + " : " + visitorName + " " + msg.text);
+            sendTelegramMessage(chatId, userId + "[" + webName + "]: " + visitorName + " " + msg.text);
         });
 
         client.on('disconnect', function(){
